@@ -50,46 +50,52 @@
 	};
 </script>
 
-<div class="flex justify-center content-center p-2 flex-col w-1/2 mx-auto" lang="ts">
-	<h1 class="text-3xl font-bold mb-4">Mastermind?</h1>
-	{#each guesses as guess, index (index)}
-		{@const validation = validate(guess)}
-		<div class="border-black bg-white rounded-md border-2 mb-8">
-			<div class="p-2 flex flex-row content-center">
-				<span class="flex"># {index + 1}</span>
-				{#each validation as result}
-					<div
-						class="h-4 w-4 flex even:mx-1 rounded-full {result === 'hit'
-							? 'bg-red-400'
-							: 'bg-gray-400'}"
-					/>
-				{/each}
-			</div>
-			<div class="grid grid-cols-4 my-4 gap-4 justify-center">
-				{#each guess as color}
-					<div class="flex justify-center">
-						<span
-							class="h-16 w-16 rounded-md col-span-1 border-black border-2"
-							style="background-color:{color};"
-						/>
-					</div>
-				{/each}
-			</div>
-		</div>
-	{/each}
-	<form on:submit|preventDefault={handleSubmit}>
-		<div class="grid grid-cols-4 gap-4">
-			{#each inputs as input}
-				<select id={input} name="selection">
-					{#each codePegs as peg}
-						<option value={peg}>{peg}</option>
+<div>
+	<div class="grid grid-cols-2 gap-4 h-screen">
+		<div class="bg-red-50 px-8 flex flex-col content-center justify-center">
+			<h1 class="text-6xl font-bold mb-8">Mastermind?</h1>
+			<form on:submit|preventDefault={handleSubmit}>
+				<div class="grid grid-cols-4 gap-4">
+					{#each inputs as input}
+						<select id={input} name="selection">
+							{#each codePegs as peg}
+								<option value={peg}>{peg}</option>
+							{/each}
+						</select>
 					{/each}
-				</select>
+				</div>
+				<button
+					class="py-2 w-full text-center mt-6 bg-neutral-300 rounded-md uppercase text-xl font-medium"
+					type="submit">submit</button
+				>
+			</form>
+		</div>
+		<div class="bg-purple-50">
+			{#each guesses as guess, index (index)}
+				{@const validation = validate(guess)}
+				<div class="border-black bg-white rounded-md border-2 mb-8">
+					<div class="p-2 flex flex-row content-center">
+						<span class="flex"># {index + 1}</span>
+						{#each validation as result}
+							<div
+								class="h-4 w-4 flex even:mx-1 rounded-full {result === 'hit'
+									? 'bg-red-400'
+									: 'bg-gray-400'}"
+							/>
+						{/each}
+					</div>
+					<div class="grid grid-cols-4 my-4 gap-4 justify-center">
+						{#each guess as color}
+							<div class="flex justify-center">
+								<span
+									class="h-16 w-16 rounded-md col-span-1 border-black border-2"
+									style="background-color:{color};"
+								/>
+							</div>
+						{/each}
+					</div>
+				</div>
 			{/each}
 		</div>
-		<button
-			class="py-2 w-full text-center mt-6 bg-neutral-300 rounded-md uppercase text-xl font-medium"
-			type="submit">submit</button
-		>
-	</form>
+	</div>
 </div>
